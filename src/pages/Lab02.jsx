@@ -1,12 +1,12 @@
 import React from "react";
 
 const songs = [
-  { id: 1, name: "My Tam", genre: "Music", image: "https://via.placeholder.com/50" },
-  { id: 2, name: "Ho Ngoc Ha", genre: "Music", image: "https://via.placeholder.com/50" },
-  { id: 3, name: "Quang Hung MasterD", genre: "Music", image: "https://via.placeholder.com/50" },
-  { id: 4, name: "Son Tung MTP", genre: "Music", image: "https://via.placeholder.com/50" },
-  { id: 5, name: "Duc Phuc", genre: "Music", image: "https://via.placeholder.com/50" },
-  { id: 6, name: "Justin Bieber", genre: "Music", image: "https://via.placeholder.com/50" },
+  { id: 1, name: "My Tam", genre: "Music", image: "/assets/myTam.jpg" },
+  { id: 2, name: "Ho Ngoc Ha", genre: "Music", image: "/assets/hoNgocHa.jpg" },
+  { id: 3, name: "Quang Hung MasterD", genre: "Music", image: "/assets/quangHung.jpg" },
+  { id: 4, name: "Son Tung MTP", genre: "Music", image: "/assets/sonTung.jpg" },
+  { id: 5, name: "Duc Phuc", genre: "Music", image: "/assets/ducPhuc.jpg" },
+  { id: 6, name: "Justin Bieber", genre: "Music", image: "/assets/justin.jpg" },
 ];
 
 export default function MusicPlayer() {
@@ -18,7 +18,9 @@ export default function MusicPlayer() {
         {songs.map((song, index) => (
           <li key={song.id} className="flex items-center justify-between py-4">
             <div className="flex items-center gap-4">
-              <span className="text-gray-500 font-semibold w-6">{String(index + 1).padStart(2, '0')}</span>
+              <span className="text-gray-500 font-semibold w-6">
+                {String(index + 1).padStart(2, '0')}
+              </span>
               <img
                 src={song.image}
                 alt={song.name}

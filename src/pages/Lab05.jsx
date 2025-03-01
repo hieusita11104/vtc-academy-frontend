@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import CounterComponent from "../components/CounterComponent";
 import UserInput from "../components/UserInput";
 import MemoizedBox from "../components/MemoizedBox";
@@ -14,7 +15,14 @@ const tabs = [
 ];
 
 export default function Lab05() {
-  const [activeTab, setActiveTab] = useState("counter");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const activeTab = location.pathname.replace("/lab05/", "") || "counter";
+
+  const handleTabClick = (tab) => {
+    navigate(`/lab05/${tab}`);
+  };
 
   return (
     <div className="p-5 text-center font-sans">
@@ -24,7 +32,7 @@ export default function Lab05() {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => handleTabClick(tab.id)}
             className={`p-2 border-b-2 transition duration-300 ${
               activeTab === tab.id
                 ? "border-purple-600 text-purple-700"
