@@ -1,36 +1,43 @@
-import { Routes, Route } from "react-router-dom";
-import { Suspense, lazy } from "react";
-import ProtectedRoute from "./routes/ProtectedRoute";
-
-const Login = lazy(() => import("./pages/Login"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-
-const LoadingSpinner = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      <div className="relative">
-        <div className="w-16 h-16 border-4 border-white border-dashed rounded-full animate-spin"></div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-white font-bold">Loading...</span>
-        </div>
-      </div>
-    </div>
-  );
+import React, { useState, useEffect } from "react";
+import Login from "./components/Login";
+import UserList from "./components/UserList";
+import PostManager from "./components/PostManager";
+import CachedData from "./components/CachedData";
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("authToken"));
+  const [activeTab, setActiveTab] = useState("users");
+
+  useEffect(() => {
+    setToken(localStorage.getItem("authToken"));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setToken(null);
+  };
+
   return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </Suspense>
+    <div>
+      {!token ? (
+        <Login setToken={setToken} />
+      ) : (
+        <>
+          <h1>🏠 Dashboard</h1>
+          <button onClick={handleLogout}>🚪 Logout</button>
+
+          <div>
+            <button onClick={() => setActiveTab("users")}>👥 Users</button>
+            <button onClick={() => setActiveTab("posts")}>📝 Post Management</button>
+            <button onClick={() => setActiveTab("cache")}>🚀 API Caching</button>
+          </div>
+
+          {activeTab === "users" && <UserList />}
+          {activeTab === "posts" && <PostManager />}
+          {activeTab === "cache" && <CachedData />}
+        </>
+      )}
+    </div>
   );
 }
 
