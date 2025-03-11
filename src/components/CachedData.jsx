@@ -26,11 +26,16 @@ const CachedData = () => {
   };
 
   return (
-    <div>
-      <h2>📜 Danh sách Bài Viết (Có Cache)</h2>
-      <ul>
-        {data.slice(0, 5).map(post => (
-          <li key={post.id}>{post.title}</li>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-xl font-bold text-gray-800 mb-4">📜 Danh sách Bài Viết (Có Cache)</h2>
+      <ul className="space-y-2">
+        {data.slice(0, 5).map((post) => (
+          <li
+            key={post.id}
+            className="bg-gray-100 p-3 rounded-md border border-gray-300 hover:bg-gray-200 transition"
+          >
+            {post.title}
+          </li>
         ))}
       </ul>
     </div>

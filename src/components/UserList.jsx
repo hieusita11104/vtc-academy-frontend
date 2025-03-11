@@ -21,14 +21,21 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  if (loading) return <p>⏳ Đang tải...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loading) return <p className="text-center text-blue-500 text-lg">⏳ Đang tải...</p>;
+  if (error) return <p className="text-center text-red-500 font-semibold">{error}</p>;
 
   return (
-    <div>
-      <ul>
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">📋 Danh sách Người Dùng</h2>
+      <ul className="space-y-3">
         {users.map(user => (
-          <li key={user.id}>{user.name} - {user.email}</li>
+          <li 
+            key={user.id} 
+            className="p-3 border rounded-lg shadow-sm flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition"
+          >
+            <span className="text-gray-700 font-medium">{user.name}</span>
+            <span className="text-gray-500 text-sm">{user.email}</span>
+          </li>
         ))}
       </ul>
     </div>
