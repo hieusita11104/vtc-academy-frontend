@@ -1,76 +1,52 @@
-import { useState } from "react";
-import ContactForm from "./components/ContactForm";
-import Register from "./components/Register";
-import DynamicForm from "./components/DynamicForm";
-import RegisterForm from "./components/RegisterForm";
-import AdvancedForm from "./components/AdvancedForm"; // Thêm form mới
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Counter from "./components/Counter";
+import PostList from "./components/PostList";
+import ShoppingCart from "./components/ShoppingCart";
+import ProductManagement from "./components/ProductManagement";
 
 function App() {
-  const [activeTab, setActiveTab] = useState("contact");
-
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <div className="flex justify-center space-x-4 mb-6">
-        <button
-          onClick={() => setActiveTab("contact")}
-          className={`px-4 py-2 rounded-lg transition ${
-            activeTab === "contact"
-              ? "bg-blue-500 text-white shadow-lg"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-        >
-          Contact Form
-        </button>
-        <button
-          onClick={() => setActiveTab("register")}
-          className={`px-4 py-2 rounded-lg transition ${
-            activeTab === "register"
-              ? "bg-blue-500 text-white shadow-lg"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-        >
-          Register
-        </button>
-        <button
-          onClick={() => setActiveTab("dynamicForm")}
-          className={`px-4 py-2 rounded-lg transition ${
-            activeTab === "dynamicForm"
-              ? "bg-blue-500 text-white shadow-lg"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-        >
-          Dynamic Form
-        </button>
-        <button
-          onClick={() => setActiveTab("RegisterForm")}
-          className={`px-4 py-2 rounded-lg transition ${
-            activeTab === "RegisterForm"
-              ? "bg-blue-500 text-white shadow-lg"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-        >
-          API Submission
-        </button>
-        <button
-          onClick={() => setActiveTab("advancedForm")}
-          className={`px-4 py-2 rounded-lg transition ${
-            activeTab === "advancedForm"
-              ? "bg-blue-500 text-white shadow-lg"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-        >
-          Advanced Form
-        </button>
-      </div>
+    <Router>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+        <h1 className="text-3xl font-bold mb-6">Redux Thunk & Counter App</h1>
 
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        {activeTab === "contact" && <ContactForm />}
-        {activeTab === "register" && <Register />}
-        {activeTab === "dynamicForm" && <DynamicForm />}
-        {activeTab === "RegisterForm" && <RegisterForm />}
-        {activeTab === "advancedForm" && <AdvancedForm />}
+        <div className="flex gap-4 mb-6">
+          <Link
+            to="/counter"
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          >
+            Counter
+          </Link>
+          <Link
+            to="/posts"
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+          >
+            Posts
+          </Link>
+          <Link
+            to="/shopping-cart"
+            className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
+          >
+            Shopping Cart
+          </Link>
+          <Link
+            to="/product-management"
+            className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition"
+          >
+            Product Management
+          </Link>
+        </div>
+
+        <Routes>
+          <Route path="/counter" element={<Counter />} />
+          <Route path="/posts" element={<PostList />} />
+          <Route path="/shopping-cart" element={<ShoppingCart />} />
+          <Route path="/product-management" element={<ProductManagement />} />
+          <Route path="*" element={<Counter />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
